@@ -1,7 +1,7 @@
 setwd("/Users/aytacozkan/works/heuristic.space.maximization/csv/")
 
-ga_fname = "GA/Results/GA_Results_1555309458.csv"
-pso_fname = "PSO/Results/PSO_Results_1555309173.csv"
+ga_fname = "GA/Results/GA_Results_1555370161.csv"
+pso_fname = "PSO/Results/PSO_Results_1555369869.csv"
 
 ga_set <- scan(ga_fname, sep = ",", what = numeric(0), quiet = TRUE)
 pso_set <- scan(pso_fname, sep = ",", what = numeric(0),quiet = TRUE)
@@ -22,14 +22,14 @@ max(pso_set)
 
 
 library(dplyr)
-compare_them <- function(data1,data2) {
-  sum1 <- apply(data1,2,summary) %>% data.frame() 
-  sum2 <- apply(data2,2,summary) %>% data.frame() 
+compare_them <- function(ga_data,pso_data) {
+  ga_sum <- summary(ga_data) 
+  pso_sum <- summary(pso_data) 
   
-  names(sum1) <- paste0(names(sum1),"1")
-  names(sum2) <- paste0(names(sum2),"2")
+  names(ga_sum) <- paste0(names(ga_sum),"1")
+  names(pso_sum) <- paste0(names(pso_sum),"2")
   
-  final <- cbind(sum1,sum2)
+  final <- cbind(ga_sum,pso_sum)
   
   final1 <- t(final) 
   
@@ -38,8 +38,8 @@ compare_them <- function(data1,data2) {
   final_1 <- t(final2) %>% data.frame()
   final_1
 }
-
-compare_them(ga_set,pso_set*2) %>% View()
+ 
+compare_them(ga_set,pso_set) %>% View()
 
 
 

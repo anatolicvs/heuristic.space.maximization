@@ -21,6 +21,7 @@ class GA(PolygonStochasticOptimization):
     """ The implementation class for stochastic optimization with generic algorithms for polygons."""
 
     def __init__(self, polygon, nb_Cycles, nb_Indiv, w, ro_max):
+        super(GA, self).__init__()
         self.polygon = polygon
         self.Nb_Cycles = nb_Cycles
         self.Nb_Indiv = nb_Indiv
@@ -132,27 +133,32 @@ class GA(PolygonStochasticOptimization):
                         num1 = num2 = num3 = 0
                         while num1 == num2 == num3 or self.calcDist(pop[num1][0], pop[num2][0]) == 0 or self.calcDist(
                                 pop[num1][0], pop[num2][0]) == 0:
+
                             num1 = random.randint(0, self.Nb_Indiv - 1)
                             num2 = random.randint(0, self.Nb_Indiv - 1)
                             num3 = random.randint(0, self.Nb_Indiv - 1)
+
                             flag += 1
+
                             if flag == 10:
                                 for i in range(3):
                                     pop[i] = self.mutation(
                                         pop[i], minMaxSets, self.polygon)
+
                         parents = [pop[num1], pop[num2], pop[num3]]
-                        child.append(self.___makingInd(
-                            self, parents, self.polygon))
+                        child.append(self.___makingInd(self, parents, self.polygon))
+
                     if self.calcArea(best) < self.calcArea(self.__getBest(self, child)):
                         best = self.__getBest(self, child)
                         pop[num1] = best
+
                     if self.calcArea(worst[0]) < self.calcArea(self.__getBest(self, child)):
                         pop[worst[1]] = self.__getBest(self, child)
                         worst = self.__getWorst(self, pop)
 
                 print(iteration)
-                super().bestResultCombination.append(best)
-                super().bestResultArea.append(self.calcArea(best))
+                self.bestResultCombination.append(best)
+                self.bestResultArea.append(self.calcArea(best))
 
         except Exception as exp_m:
             logging.error(exp_m, extra=d)

@@ -19,11 +19,13 @@ class PSO(PolygonStochasticOptimization):
     """ The implementation class for stochastic optimization for polygons."""
 
     def __init__(self, polygon, nb_Cycles, nb_Indiv, w, ro_max):
+        super(PSO, self).__init__()
         self.polygon = polygon
         self.Nb_Cycles = nb_Cycles
         self.Nb_Indiv = nb_Indiv
         self.w = w
         self.ro_max = ro_max
+
 
     def __repr__(self):
         return "{cls}({polygon}, {Nb_Cycles},{Nb_Indiv},{w},{ro_max})".format(
@@ -104,8 +106,8 @@ class PSO(PolygonStochasticOptimization):
                             groupBest = copy.deepcopy(pop[j])
                     tempBestArea = 0
 
-                super().bestResultCombination.append(groupBest)
-                super().bestResultArea.append(self.calcArea(groupBest))
+                self.bestResultCombination.append(groupBest)
+                self.bestResultArea.append(self.calcArea(groupBest))
 
         except Exception as exp_m:
             logging.error(exp_m, extra=d)
