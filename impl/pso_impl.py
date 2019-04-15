@@ -39,12 +39,9 @@ class PSO(PolygonStochasticOptimization):
         for i in range(len(v)):
             if i == 0 or i == 1:
                 for j in range(len(v[i])):
-                    v[i][j] = w * v[i][j] + random.uniform(0, ro_max) * (indBest[i][j] - pos[i][j]) + random.uniform(0,
-                                                                                                                     ro_max) * (
-                                      groupBest[i][j] - pos[i][j])
+                    v[i][j] = w * v[i][j] + random.uniform(0, ro_max) * (indBest[i][j] - pos[i][j]) + random.uniform(0,ro_max) * (groupBest[i][j] - pos[i][j])
             else:
-                v[i] = w * v[i] + random.uniform(0, ro_max) * (indBest[i] - pos[i]) + random.uniform(0, ro_max) * (
-                        groupBest[i] - pos[i])
+                v[i] = w * v[i] + random.uniform(0, ro_max) * (indBest[i] - pos[i]) + random.uniform(0, ro_max) * (groupBest[i] - pos[i])
                 v[i] = abs(v[i]) % (2 * math.pi)
                 if v[i] > math.pi:
                     v[i] -= math.pi
