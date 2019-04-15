@@ -2,9 +2,11 @@ import logging
 import math
 import random
 import socket
+import time
 
 import numpy as np
 import numpy.random as randnp
+from tqdm import tqdm
 
 from pso.p_stochastic_opt import PolygonStochasticOptimization
 
@@ -119,7 +121,7 @@ class GA(PolygonStochasticOptimization):
                 ro_max=self.ro_max))
 
         try:
-            for iteration in range(30):
+            for iteration in tqdm(range(30)):
                 minMaxSets = self.getEdges(self.polygon)
                 pop = self.initPop(self.Nb_Indiv, self.polygon)
 
@@ -156,7 +158,7 @@ class GA(PolygonStochasticOptimization):
                         pop[worst[1]] = self.__getBest(self, child)
                         worst = self.__getWorst(self, pop)
 
-                print(iteration)
+                time.sleep(1)
                 self.bestResultCombination.append(best)
                 self.bestResultArea.append(self.calcArea(best))
 

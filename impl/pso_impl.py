@@ -3,6 +3,9 @@ import logging
 import math
 import random
 import socket
+import time
+
+from tqdm import tqdm
 
 from pso.p_stochastic_opt import PolygonStochasticOptimization
 
@@ -26,7 +29,6 @@ class PSO(PolygonStochasticOptimization):
         self.w = w
         self.ro_max = ro_max
 
-
     def __repr__(self):
         return "{cls}({polygon}, {Nb_Cycles},{Nb_Indiv},{w},{ro_max})".format(
             cls=self.__class__.__name__,
@@ -41,9 +43,12 @@ class PSO(PolygonStochasticOptimization):
         for i in range(len(v)):
             if i == 0 or i == 1:
                 for j in range(len(v[i])):
-                    v[i][j] = w * v[i][j] + random.uniform(0, ro_max) * (indBest[i][j] - pos[i][j]) + random.uniform(0,ro_max) * (groupBest[i][j] - pos[i][j])
+                    v[i][j] = w * v[i][j] + random.uniform(0, ro_max) * (indBest[i][j] - pos[i][j]) + random.uniform(0,
+                                                                                                                     ro_max) * (
+                                          groupBest[i][j] - pos[i][j])
             else:
-                v[i] = w * v[i] + random.uniform(0, ro_max) * (indBest[i] - pos[i]) + random.uniform(0, ro_max) * (groupBest[i] - pos[i])
+                v[i] = w * v[i] + random.uniform(0, ro_max) * (indBest[i] - pos[i]) + random.uniform(0, ro_max) * (
+                            groupBest[i] - pos[i])
                 v[i] = abs(v[i]) % (2 * math.pi)
                 if v[i] > math.pi:
                     v[i] -= math.pi
@@ -73,7 +78,7 @@ class PSO(PolygonStochasticOptimization):
                     w=self.w,
                     ro_max=self.ro_max))
 
-            for ite in range(30):
+            for ite in tqdm(range(30)):
                 minMaxSets = self.getEdges(self.polygon)
                 centerGrav = self.makingCenterGravCircum(self.polygon)
                 pop = self.initPop(self.Nb_Indiv, self.polygon)
@@ -105,7 +110,7 @@ class PSO(PolygonStochasticOptimization):
                             bestArea = tempBestArea
                             groupBest = copy.deepcopy(pop[j])
                     tempBestArea = 0
-
+                time.sleep(1)
                 self.bestResultCombination.append(groupBest)
                 self.bestResultArea.append(self.calcArea(groupBest))
 
