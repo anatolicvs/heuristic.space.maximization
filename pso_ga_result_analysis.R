@@ -1,30 +1,28 @@
+library(dplyr)
 setwd("/Users/aytacozkan/works/heuristic.space.maximization/csv/")
 
 ga_fname = "GA/Results/GA_Results_1555372486.csv"
-pso_fname = "PSO/Results/PSO_Results_1555372138.csv"
+pso_fname = "PSO/Results/PSO_Results_1555431041.csv"
 
 ga_set <- scan(ga_fname, sep = ",", what = numeric(0), quiet = TRUE)
 pso_set <- scan(pso_fname, sep = ",", what = numeric(0),quiet = TRUE)
-# ga_set <- read.csv(ga_fname,header = FALSE, sep=",",colClasses = NA, nrows = -1)
-
-str(ga_set)
-head(ga_set)
-
-mean(ga_set)
-median(ga_set)
-summary(ga_set,digits=7,maxsum=7)
-max(ga_set)
-
-mean(pso_set)
-median(pso_set)
-summary(pso_set)
-max(pso_set)
 
 
-library(dplyr)
 compare_them <- function(ga_data,pso_data) {
   ga_sum <- summary(ga_data) 
   pso_sum <- summary(pso_data) 
+  
+  t.value1 = (mean(ga_data) - 10) / (sd(ga_data) / sqrt(length(ga_data)))
+  p.value1 = dt(t.value1, df=length(ga_data) - 1)
+  
+  t.value2 = (mean(pso_data) - 10) / (sd(pso_data) / sqrt(length(pso_data)))
+  p.value2 = dt(t.value2, df=length(pso_data) - 1)
+  
+  ga_sum$t.value = t.value1
+  ga_sum$p.value = p.value1
+  
+  pso_sum$t.value = t.value2
+  pso_sum$p.value = p.value2
   
   names(ga_sum) <- paste0(names(ga_sum),"1")
   names(pso_sum) <- paste0(names(pso_sum),"2")
