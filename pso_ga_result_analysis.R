@@ -1,7 +1,7 @@
 setwd("/Users/aytacozkan/works/heuristic.space.maximization/csv/")
 
-ga_fname = "GA/Results/GA_Results_1555370161.csv"
-pso_fname = "PSO/Results/PSO_Results_1555369869.csv"
+ga_fname = "GA/Results/GA_Results_1555372486.csv"
+pso_fname = "PSO/Results/PSO_Results_1555372138.csv"
 
 ga_set <- scan(ga_fname, sep = ",", what = numeric(0), quiet = TRUE)
 pso_set <- scan(pso_fname, sep = ",", what = numeric(0),quiet = TRUE)
@@ -40,6 +40,15 @@ compare_them <- function(ga_data,pso_data) {
 }
  
 compare_them(ga_set,pso_set) %>% View()
+
+polygon = c(c(10,10),c(10,300),c(250,300),c(350,130),c(200,10))
+
+# Student t-Test
+t.test(x=polygon, mu=10, conf.level=0.95)
+
+# Manually calculate p-value
+t.value = (mean(polygon) - 10) / (sd(polygon) / sqrt(length(polygon)))
+p.value = dt(t.value, df=length(polygon) - 1)
 
 
 

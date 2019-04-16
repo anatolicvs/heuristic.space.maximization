@@ -20,8 +20,8 @@ print(pso.__csv__(name="PSO"))
 # GA Algorithm
 # rgb(250,235,215)
 # rgb(0,191,255)
-ga = GA(polygon=polygon, nb_Cycles=Nb_Cycles, nb_Indiv=Nb_Indiv, w=w, ro_max=ro_max)
+# ga = GA(polygon=polygon, nb_Cycles=Nb_Cycles, nb_Indiv=Nb_Indiv, w=w, ro_max=ro_max)
 
-print(ga.__exec__())
-print(ga.__draw__(name="GA", polygon=polygon, color=(255, 250, 250), clname="White"))
-print(ga.__csv__(name="GA"))
+# print(ga.__exec__())
+# print(ga.__draw__(name="GA", polygon=polygon, color=(255, 250, 250), clname="White"))
+# print(ga.__csv__(name="GA"))
