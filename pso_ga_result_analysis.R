@@ -42,7 +42,7 @@ compare_them(ga_set,pso_set) %>% View()
 polygon = c(c(10,10),c(10,300),c(250,300),c(350,130),c(200,10))
 
 # Student t-Test
-t.test(x=polygon, mu=10, conf.level=0.95)
+t.test(x=ga_set, mu=10, conf.level=0.95)
 
 # Manually calculate p-value
 t.value = (mean(polygon) - 10) / (sd(polygon) / sqrt(length(polygon)))
